@@ -1,170 +1,87 @@
 # CRUD-Symfony-Docker
 
-Provide an introductory paragraph, describing:
 
-* What your project does
-* Why people should consider using your project
-* Link to project home page
-
-## Table of Contents
-
-1. [About the Project](#about-the-project)
-1. [Project Status](#project-status)
-1. [Getting Started](#getting-started)
-	1. [Dependencies](#dependencies)
-	1. [Building](#building)
-	2. [Running Tests](#running-tests)
-		1. [Other Tests](#other-tests)
-	1. [Installation](#installation)
-	1. [Usage](#usage)
-1. [Release Process](#release-process)
-	1. [Versioning](#versioning)
-	1. [Payload](#payload)
-1. [How to Get Help](#how-to-get-help)
-1. [Contributing](#contributing)
-1. [Further Reading](#further-reading)
-1. [License](#license)
-1. [Authors](#authors)
-1. [Acknowledgments](#acknowledgements)
 
 ## About the Project
 
-Here you can provide more details about the project
-* What features does your project provide?
-* Short motivation for the project? (Don't be too long winded)
-* Links to the project site
+Simple dockerized Symfony 5 CRUD application :
 
-```
-Show some example code to describe what your project does
-Show some of your APIs
-```
+- Create, read, update, delete items(articles) with their title, content and categories.
+- API (with POST and GET).
 
 **[Back to top](#table-of-contents)**
 
-## Project Status
+### Dependencies and prerequisites
 
-Show the build status if you have a CI server:
+- [Docker](https://www.docker.com/)
 
-[![Build Status](http://your-server:12345/job/badge/icon)](http://your-server/job/badge/icon/)
+### Containers and versions
 
-Describe the current release and any notes about the current state of the project. Examples: currently compiles on your host machine, but is not cross-compiling for ARM, APIs are not set, feature not implemented, etc.
+- [nginx](https://pkgs.alpinelinux.org/packages?name=nginx&branch=v3.10) 1.18.+
+- [php-fpm](https://pkgs.alpinelinux.org/packages?name=php7&branch=v3.10) 7.4.+
+  - [composer](https://getcomposer.org/)
+  - [yarn](https://yarnpkg.com/lang/en/) and [node.js](https://nodejs.org/en/) (if you will use [Encore](https://symfony.com/doc/current/frontend/encore/installation.html) for managing JS and CSS)
+- [mysql](https://hub.docker.com/_/mysql/) 5.7.+
 
-**[Back to top](#table-of-contents)**
+### Installation of the app
 
-## Getting Started
+Use the following commands to run the project
 
-This section should provide instructions for other developers to
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-### Dependencies
-
-Describe what software and libraries you will need to install in order to build and use this project. Provide details on how to resolve these dependencies.
-
-Remember: `git-lfs` is a dependency that developers will need to resolve before they can get started with a repository using LFS.
-
-```
-Examples should be included
-```
-
-### Getting the Source
-
-Include a link to your GitHub repository (you have no idea how people will find your code), and also a summary of how to clone.
-
-This project is [hosted on GitHub](https://github.com/embeddedartistry/embedded-resources). You can clone this project directly using this command:
-
-```
-git clone git@github.com:embeddedartistry/templates.git
-```
-
-### Building
-
-Instructions for how to build your project
-
-```
-Examples should be included
-```
-
-### Running Tests
-
-Describe how to run unit tests for your project.
-
-```
-Examples should be included
-```
-
-#### Other Tests
-
-If you have formatting checks, coding style checks, or static analysis tests that must pass before changes will be considered, add a section for those and provide instructions
-
-### Installation
-
-Instructions for how to install your project's build artifacts
-
-```
-Examples should be included
-```
+- docker-compose up -d --build
+- docker-compose exec php composer install
+- chmod -R 777 symfony/ (for linux users)
+- Migration of data BDD : docker-compose exec php bin/console d:s:u --force
 
 ### Usage
 
-Instructions for using your project. Ways to run the program, how to include it in another project, etc.
+- Access to localhost : http://localhost
 
-```
-Examples should be included
-```
+- Access to api : http://localhost/api
 
-If your project provides an API, either provide details for usage in this document or link to the appropriate API reference documents
+- Migration DATA BDD (in case not done during installation): docker-compose exec php bin/console d:s:u --force
 
-**[Back to top](#table-of-contents)**
+- Access to articles (items) : http://localhost/articles
 
-## Release Process
+- Access to categories : http://localhost/category
 
-Talk about the release process. How are releases made? What cadence? How to get new releases?
+- Using theApi :
+
+GET : http://localhost/api/articles
+
+POST : http://localhost/api/articles
+=> body
+{
+"title": "string",
+"content": "string",
+"categories": [
+""
+]
+}
+
+---
+
+GET : http://localhost/api/categories
+
+POST : http://localhost/api/categories
+=> body
+{
+"label": "string",
+"articles": [
+""
+]
+}
+
+### Launch project on Preprod environement :
+
+- Another env was created for preprod environement ( see file docker-compose.preprod.yml)
+- Use the following command : docker-compose -f docker-compose.preprod.yml up -d
 
 ### Versioning
 
 This project uses [Semantic Versioning](http://semver.org/). For a list of available versions, see the [repository tag list](https://github.com/your/project/tags).
 
-### Payload
+### Authors
 
-**[Back to top](#table-of-contents)**
-
-## How to Get Help
-
-Provide any instructions or contact information for users who need to get further help with your project.
-
-## Contributing
-
-Provide details about how people can contribute to your project. If you have a contributing guide, mention it here. e.g.:
-
-We encourage public contributions! Please review [CONTRIBUTING.md](docs/CONTRIBUTING.md) for details on our code of conduct and development process.
-
-**[Back to top](#table-of-contents)**
-
-## Further Reading
-
-Provide links to other relevant documentation here
-
-**[Back to top](#table-of-contents)**
-
-## License
-
-Copyright (c) 2021 Embedded Artistry LLC
-
-This project is licensed under the XXXXXX License - see [LICENSE.md](LICENSE.md) file for details.
-
-**[Back to top](#table-of-contents)**
-
-## Authors
-
-* **[Phillip Johnston](https://github.com/phillipjohnston)** - *Initial work* - [Embedded Artistry](https://github.com/embeddedartistry)
-
-Also see the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-**[Back to top](#table-of-contents)**
-
-## Acknowledgments
-
-Provide proper credits, shout-outs, and honorable mentions here. Also provide links to relevant repositories, blog posts, or contributors worth mentioning.
-
-**[Back to top](#table-of-contents)**
+- Jonathan Luminuku.
+- Amer Cherni.
+- Walid Rehioui.
