@@ -1,5 +1,3 @@
-# syntax=docker
-
 FROM alpine:3.12
 
 # image maintainer
