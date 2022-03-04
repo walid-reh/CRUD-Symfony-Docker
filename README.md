@@ -9,8 +9,6 @@ Simple dockerized Symfony 5 CRUD application :
 - Create, read, update, delete items(articles) with their title, content and categories.
 - API (with POST and GET).
 
-**[Back to top](#table-of-contents)**
-
 ### Dependencies and prerequisites
 
 - [Docker](https://www.docker.com/)
